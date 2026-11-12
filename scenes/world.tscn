@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://0kca1deigrjn"]
+
+[ext_resource type="PackedScene" uid="uid://bsquwmberr2sn" path="res://scenes/player.tscn" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://cdq7j1q7446fk" path="res://scenes/health_plant.tscn" id="2_4wyf3"]
+[ext_resource type="Script" uid="uid://b2eqqwbjed0fe" path="res://scenes/death_zone.gd" id="2_rwgxs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
+size = Vector2(1150, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnefl"]
+size = Vector2(3399.5, 153.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecb02"]
+size = Vector2(204, 1198)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nq5o4"]
+size = Vector2(471, 2203)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td3bv"]
+size = Vector2(390, 1720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d38v1"]
+size = Vector2(462, 2558)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8mrn"]
+size = Vector2(2122, 39)
+
+[node name="World" type="Node2D" unique_id=2035015843]
+
+[node name="Ground1" type="StaticBody2D" parent="." unique_id=2083186750]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground1" unique_id=509192093]
+position = Vector2(576, 620)
+shape = SubResource("RectangleShape2D_3vyb7")
+
+[node name="ColorRect" type="ColorRect" parent="Ground1" unique_id=1484813490]
+offset_left = 1.0
+offset_top = 600.0
+offset_right = 1151.0
+offset_bottom = 640.0
+
+[node name="Player" parent="Ground1/ColorRect" unique_id=1296623671 instance=ExtResource("1_nnsk1")]
+position = Vector2(15, -25)
+
+[node name="DeathZone" type="Area2D" parent="." unique_id=247029752]
+script = ExtResource("2_rwgxs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=128992577]
+position = Vector2(1696, 970.125)
+shape = SubResource("RectangleShape2D_cnefl")
+
+[node name="Cliff1" type="StaticBody2D" parent="." unique_id=227443539]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cliff1" unique_id=1699713436]
+position = Vector2(270, 1)
+shape = SubResource("RectangleShape2D_ecb02")
+
+[node name="ColorRect" type="ColorRect" parent="Cliff1" unique_id=105101198]
+offset_left = 166.0
+offset_top = -599.0
+offset_right = 374.0
+offset_bottom = 598.0
+
+[node name="Cliff2" type="StaticBody2D" parent="." unique_id=1171132205]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cliff2" unique_id=151617899]
+position = Vector2(917.5, -501.5)
+shape = SubResource("RectangleShape2D_nq5o4")
+
+[node name="ColorRect" type="ColorRect" parent="Cliff2" unique_id=2082981367]
+offset_left = 682.0
+offset_top = -1623.0
+offset_right = 1149.0
+offset_bottom = 601.0
+
+[node name="WallLeft" type="StaticBody2D" parent="." unique_id=1156576509]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" unique_id=1155383286]
+position = Vector2(1812, -276)
+shape = SubResource("RectangleShape2D_td3bv")
+
+[node name="ColorRect" type="ColorRect" parent="WallLeft" unique_id=460967164]
+offset_left = 1603.0
+offset_top = -1134.0
+offset_right = 2015.0
+offset_bottom = 597.0
+
+[node name="WallRight" type="StaticBody2D" parent="." unique_id=920398106]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=686765870]
+position = Vector2(2683, -677)
+shape = SubResource("RectangleShape2D_d38v1")
+
+[node name="ColorRect" type="ColorRect" parent="WallRight" unique_id=892188517]
+offset_left = 2449.0
+offset_top = -1961.0
+offset_right = 2923.0
+offset_bottom = 602.0
+
+[node name="Ground2" type="StaticBody2D" parent="." unique_id=942687670]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground2" unique_id=771146362]
+position = Vector2(2326, 619.5)
+shape = SubResource("RectangleShape2D_h8mrn")
+
+[node name="ColorRect" type="ColorRect" parent="Ground2" unique_id=1535644202]
+offset_left = 1264.0
+offset_top = 600.0
+offset_right = 3390.0
+offset_bottom = 639.0
+
+[node name="HealthPlant" parent="." unique_id=1440345486 instance=ExtResource("2_4wyf3")]
+position = Vector2(271, -610)

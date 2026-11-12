@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cdq7j1q7446fk"]
+
+[ext_resource type="Script" uid="uid://cpgc37l5fjswm" path="res://health_plant.gd" id="1_13lgw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cnefl"]
+radius = 0.0
+
+[node name="HealthPlant" type="Area2D" unique_id=1440345486]
+script = ExtResource("1_13lgw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1597823960]
+shape = SubResource("CircleShape2D_cnefl")
+debug_color = Color(0.12941177, 0.40784314, 0.09019608, 1)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=59058779]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+pivot_offset_ratio = Vector2(-10, -10)
+color = Color(5.523004e-06, 0.39079556, 0.1676586, 1)
