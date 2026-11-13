@@ -2,10 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://bsquwmberr2sn" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://cdq7j1q7446fk" path="res://scenes/health_plant.tscn" id="2_4wyf3"]
+[ext_resource type="Texture2D" uid="uid://ca2v76lwa2ypt" path="res://sprites/far rocks.png" id="2_i7141"]
 [ext_resource type="Script" uid="uid://b2eqqwbjed0fe" path="res://scenes/death_zone.gd" id="2_rwgxs"]
+[ext_resource type="Texture2D" uid="uid://bq33to68jvl0c" path="res://sprites/closer rocks.png" id="3_4mrxx"]
+[ext_resource type="Texture2D" uid="uid://dlpajnkrwcfqc" path="res://sprites/sky.png" id="4_k0juu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
-size = Vector2(1150, 40)
+size = Vector2(1325, 118)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnefl"]
 size = Vector2(3399.5, 153.75)
@@ -23,24 +26,47 @@ size = Vector2(390, 1720)
 size = Vector2(462, 2558)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8mrn"]
-size = Vector2(2122, 39)
+size = Vector2(2227, 121)
 
 [node name="World" type="Node2D" unique_id=2035015843]
+
+[node name="Layer sky" type="Parallax2D" parent="." unique_id=1806641324]
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer sky" unique_id=730302192]
+position = Vector2(1637.0001, -749.00006)
+scale = Vector2(0.7315, 0.46199998)
+texture = ExtResource("4_k0juu")
+
+[node name="far rocks" type="Parallax2D" parent="." unique_id=1633708868]
+
+[node name="Sprite2D" type="Sprite2D" parent="far rocks" unique_id=387326280]
+position = Vector2(1657.4999, -755.0002)
+scale = Vector2(0.73260003, 0.46249998)
+texture = ExtResource("2_i7141")
+
+[node name="closer rocks" type="Parallax2D" parent="." unique_id=965117768]
+
+[node name="Sprite2D" type="Sprite2D" parent="closer rocks" unique_id=816992824]
+position = Vector2(1649.0001, -1229.5)
+scale = Vector2(0.7304, 0.57262504)
+texture = ExtResource("3_4mrxx")
+
+[node name="closest rocks" type="Parallax2D" parent="." unique_id=690000481]
 
 [node name="Ground1" type="StaticBody2D" parent="." unique_id=2083186750]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground1" unique_id=509192093]
-position = Vector2(576, 620)
+position = Vector2(488.5, 659)
 shape = SubResource("RectangleShape2D_3vyb7")
 
 [node name="ColorRect" type="ColorRect" parent="Ground1" unique_id=1484813490]
-offset_left = 1.0
+offset_left = -175.0
 offset_top = 600.0
 offset_right = 1151.0
-offset_bottom = 640.0
+offset_bottom = 725.0
 
 [node name="Player" parent="Ground1/ColorRect" unique_id=1296623671 instance=ExtResource("1_nnsk1")]
-position = Vector2(15, -25)
+position = Vector2(159, -28)
 
 [node name="DeathZone" type="Area2D" parent="." unique_id=247029752]
 script = ExtResource("2_rwgxs")
@@ -98,16 +124,17 @@ offset_right = 2923.0
 offset_bottom = 602.0
 
 [node name="Ground2" type="StaticBody2D" parent="." unique_id=942687670]
+position = Vector2(1356, -1983)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground2" unique_id=771146362]
-position = Vector2(2326, 619.5)
+position = Vector2(1199, 2652)
 shape = SubResource("RectangleShape2D_h8mrn")
 
 [node name="ColorRect" type="ColorRect" parent="Ground2" unique_id=1535644202]
-offset_left = 1264.0
-offset_top = 600.0
-offset_right = 3390.0
-offset_bottom = 639.0
+offset_left = 93.0
+offset_top = 2591.0
+offset_right = 2326.0
+offset_bottom = 2715.0
 
 [node name="HealthPlant" parent="." unique_id=1440345486 instance=ExtResource("2_4wyf3")]
-position = Vector2(271, -610)
+position = Vector2(944, -1633)
