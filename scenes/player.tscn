@@ -7,6 +7,7 @@ size = Vector2(32, 48)
 
 [node name="Player" type="CharacterBody2D" unique_id=1296623671]
 script = ExtResource("1_3vyb7")
+health_bar_path = NodePath("HealthBar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=655010968]
 shape = SubResource("RectangleShape2D_cnefl")
@@ -22,3 +23,12 @@ offset = Vector2(520, -500)
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=377155235]
+offset_left = -619.0
+offset_top = -1137.0
+offset_right = -229.0
+offset_bottom = -1076.0
+step = 5.0
+value = 100.0
+metadata/_edit_use_anchors_ = true

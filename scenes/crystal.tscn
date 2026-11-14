@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://duudyr1k6ro7g"]
+
+[ext_resource type="Texture2D" uid="uid://fxgq86qwy4jn" path="res://sprites/crystal.png" id="1_0mmd5"]
+[ext_resource type="Script" uid="uid://dedqw56qkfj4l" path="res://scenes/crystal.gd" id="1_t4dcj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8fc1"]
+size = Vector2(106, 101)
+
+[node name="Crystal" type="Area2D" unique_id=1385933118]
+script = ExtResource("1_t4dcj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=352904168]
+position = Vector2(-324, 530.5)
+shape = SubResource("RectangleShape2D_o8fc1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2002676977]
+position = Vector2(-335.625, 514)
+scale = Vector2(0.22536232, 0.19113149)
+texture = ExtResource("1_0mmd5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
