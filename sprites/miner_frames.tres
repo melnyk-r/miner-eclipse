@@ -1,0 +1,31 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://0tvdex8ydf08"]
+
+[ext_resource type="Texture2D" uid="uid://bhkiylqvu5vvf" path="res://sprites/miner_idle_stance.png" id="1_idle"]
+[ext_resource type="Texture2D" uid="uid://dwxntmmjymk37" path="res://sprites/miner_run_2.png" id="2_run"]
+[ext_resource type="Texture2D" uid="uid://d1366wagun55m" path="res://sprites/miner_run_3.png" id="3_run"]
+[ext_resource type="Texture2D" uid="uid://c02ut4vijtxme" path="res://sprites/miner_idle.png" id="miner_idle_run_frame"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_idle")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("miner_idle_run_frame")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_run")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_run")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 7.0
+}]

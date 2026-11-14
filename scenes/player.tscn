@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bsquwmberr2sn"]
 
 [ext_resource type="Script" uid="uid://b8rstmaw41oh8" path="res://scenes/player.gd" id="1_3vyb7"]
+[ext_resource type="SpriteFrames" path="res://sprites/miner_frames.tres" id="2_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnefl"]
 size = Vector2(32, 48)
@@ -13,10 +14,18 @@ health_bar_path = NodePath("HealthBar")
 shape = SubResource("RectangleShape2D_cnefl")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=487253920]
+visible = false
 offset_left = -16.0
 offset_top = -24.0
 offset_right = 16.0
 offset_bottom = 24.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=125478001]
+position = Vector2(0, 0)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1348757073]
 offset = Vector2(520, -500)

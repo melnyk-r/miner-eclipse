@@ -7,10 +7,13 @@ var collected_crystals: int = 0
 @export var sec1_path: NodePath
 @export var sec2_path: NodePath
 @export var sec3_path: NodePath
+@export var level_complete_label_path: NodePath
 
 @onready var sec1: ProgressBar = get_node_or_null(sec1_path)
 @onready var sec2: ProgressBar = get_node_or_null(sec2_path)
 @onready var sec3: ProgressBar = get_node_or_null(sec3_path)
+@onready var level_complete_label: Label = get_node_or_null(level_complete_label_path)
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var speed: float = 200.0
 @export var jump_velocity: float = -400.0
@@ -64,12 +67,18 @@ func _physics_process(delta: float) -> void:
 
 	# 3. Горизонтальний рух
 	var direction := Input.get_axis("ui_left", "ui_right")
+	if direction != 0.0:
+		animated_sprite.flip_h = direction < 0.0
 	if direction:
 		velocity.x = direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 
 	move_and_slide()
+
+	var target_animation := "idle" if is_on_floor() and is_zero_approx(velocity.x) else "run"
+	if animated_sprite.animation != target_animation:
+		animated_sprite.play(target_animation)
 
 # Калькулятор шкоди від падіння
 func calculate_fall_damage(distance: float) -> void:
@@ -134,6 +143,17 @@ func add_crystal() -> void:
 	collected_crystals += 1
 	print("Кристал зібрано! Всього: ", collected_crystals)
 	update_crystal_ui()
+	if collected_crystals == 3:
+		show_level_complete()
+
+func show_level_complete() -> void:
+	if not level_complete_label:
+		return
+	level_complete_label.visible = true
+	level_complete_label.scale = Vector2(0.5, 0.5)
+	var tween := create_tween()
+	tween.tween_property(level_complete_label, "scale", Vector2(1.2, 1.2), 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(level_complete_label, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func update_crystal_ui() -> void:
 	if sec1:

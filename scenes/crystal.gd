@@ -12,10 +12,8 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		print("Кристал підібрано! Нараховано очок: ", score_value)
 		
-		# Якщо ви хочете додавати очки до загального рахунку гравця:
-		# (якщо у гравця є функція add_score, вона спрацює)
-		if body.has_method("add_score"):
-			body.add_score(score_value)
+		if body.has_method("add_crystal"):
+			body.add_crystal()
 		
 		# НАЙГОЛОВНІШЕ: повністю видаляємо кристал із гри
 		queue_free()

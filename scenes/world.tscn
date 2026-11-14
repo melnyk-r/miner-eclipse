@@ -151,6 +151,7 @@ position = Vector2(-16, 572)
 sec1_path = NodePath("../CanvasLayer/HBoxContainer/Section1")
 sec2_path = NodePath("../CanvasLayer/HBoxContainer/Section2")
 sec3_path = NodePath("../CanvasLayer/HBoxContainer/Section3")
+level_complete_label_path = NodePath("../CanvasLayer/LevelComplete")
 
 [node name="Ground2" type="StaticBody2D" parent="." unique_id=942687670]
 position = Vector2(1499, -2005)
@@ -201,6 +202,9 @@ position = Vector2(671, -1194)
 [node name="Crystal2" parent="." unique_id=300490208 instance=ExtResource("14_o8fc1")]
 position = Vector2(2222, -1749)
 
+[node name="Crystal3" parent="." unique_id=1159116575 instance=ExtResource("14_o8fc1")]
+position = Vector2(3850, 5)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=12536856]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1581631185]
@@ -241,3 +245,23 @@ custom_maximum_size = Vector2(-1, 90)
 layout_mode = 2
 texture = ExtResource("15_xo05s")
 expand_mode = 1
+
+[node name="LevelComplete" type="Label" parent="CanvasLayer" unique_id=441819173]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -45.0
+offset_right = 250.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(250, 45)
+theme_override_colors/font_color = Color(1, 0.9, 0.1, 1)
+theme_override_font_sizes/font_size = 48
+text = "Level complete"
+horizontal_alignment = 1
+vertical_alignment = 1
