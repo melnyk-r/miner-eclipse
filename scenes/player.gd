@@ -23,7 +23,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # Системні змінні здоров'я та падіння
 @export var max_health: int = 100
-var current_health: int = 100
+var current_health: float = 100.0
 
 # Посилання на вузол шкали на екрані
 @export var health_bar_path: NodePath
@@ -32,28 +32,44 @@ var current_health: int = 100
 var fall_start_y: float = 0.0
 var was_airborne: bool = false
 var is_jumping: bool = false
+var wall_climb_paused: bool = false
 
 func _ready() -> void:
 	current_health = max_health
 	update_health_bar()
 
 func _physics_process(delta: float) -> void:
+	var direction := Input.get_axis("ui_left", "ui_right")
+	var climbing_up_input := Input.is_action_pressed("ui_up")
+	var climbing_down_input := Input.is_action_pressed("ui_down")
+	var wall_at_start := is_on_wall()
+	var wall_jump_requested := wall_at_start and not is_on_floor() and Input.is_action_just_pressed("ui_accept") and not climbing_up_input and not climbing_down_input and (velocity.y > 0.0 or wall_climb_paused)
+	if not wall_at_start:
+		wall_climb_paused = false
+	elif climbing_up_input or climbing_down_input or wall_jump_requested:
+		wall_climb_paused = false
+	elif direction != 0.0:
+		wall_climb_paused = true
+	var wall_stationary_input := wall_at_start and wall_climb_paused and not climbing_up_input and not climbing_down_input
+
 	# 1. Фізика та відстеження падіння
 	if not is_on_floor():
-		if is_on_wall() and Input.is_action_pressed("ui_down"):
+		if wall_jump_requested:
+			velocity.x = get_wall_normal().x * speed * 1.8
+			velocity.y = jump_velocity
+			is_jumping = true
+		elif is_on_wall() and climbing_down_input:
 			was_airborne = false
 			velocity.y = speed
-		elif is_on_wall() and Input.is_action_pressed("ui_up"):
+		elif is_on_wall() and climbing_up_input:
 			was_airborne = false
 			velocity.y = -speed
+		elif wall_stationary_input:
+			was_airborne = false
+			velocity = Vector2.ZERO
 		elif is_on_wall() and velocity.y > 0:
 			was_airborne = false 
 			velocity.y = min(velocity.y + gravity * delta, wall_slide_speed)
-			
-			if Input.is_action_just_pressed("ui_accept"):
-				velocity.x = get_wall_normal().x * speed * 1.8
-				velocity.y = jump_velocity
-				is_jumping = true
 		else:
 			if not was_airborne and velocity.y > 0:
 				was_airborne = true
@@ -76,44 +92,54 @@ func _physics_process(delta: float) -> void:
 		is_jumping = true
 
 	# 3. Горизонтальний рух
-	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction != 0.0:
 		animated_sprite.flip_h = direction < 0.0
-	if direction:
-		velocity.x = direction * speed
+	if wall_stationary_input:
+		velocity.x = 0.0
+	elif direction:
+		velocity.x = direction * speed * (1.2 if is_jumping else 1.0)
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 
 	move_and_slide()
 
-	var climbing_up := is_on_wall() and Input.is_action_pressed("ui_up")
-	var climbing_down := is_on_wall() and Input.is_action_pressed("ui_down")
-	var target_animation := "climb" if climbing_up or climbing_down else ("jump" if is_jumping else ("idle" if is_on_floor() and is_zero_approx(velocity.x) else "run"))
+	var on_wall := is_on_wall()
+	var climbing_down := on_wall and climbing_down_input
+	var target_animation := "climb" if on_wall else ("jump" if is_jumping else ("idle" if is_on_floor() and is_zero_approx(velocity.x) else "run"))
 	if animated_sprite.animation != target_animation:
 		animated_sprite.play(target_animation)
-	animated_sprite.speed_scale = -1.0 if climbing_down else 1.0
+	if target_animation == "climb":
+		if wall_stationary_input and on_wall:
+			animated_sprite.set_frame_and_progress(0, 0.0)
+			animated_sprite.pause()
+		else:
+			animated_sprite.speed_scale = -1.0 if climbing_down else 1.0
+			if not animated_sprite.is_playing():
+				animated_sprite.play("climb")
+	else:
+		animated_sprite.speed_scale = -1.0 if climbing_down else 1.0
 	var animation_scale := 0.4125 if target_animation == "climb" else 0.375
 	animated_sprite.scale = Vector2(animation_scale, animation_scale)
 
 # Калькулятор шкоди від падіння
 func calculate_fall_damage(distance: float) -> void:
-	var damage: int = 0
+	var damage: float = 0.0
 	
-	if distance >= 501:
-		damage = 100
-	elif distance >= 201:
-		damage = 70
-	elif distance >= 101:
-		damage = 40
-	elif distance >= 50:
-		damage = 15
+	if distance >= 551:
+		damage = 50.0
+	elif distance >= 251:
+		damage = 35.0
+	elif distance >= 151:
+		damage = 20.0
+	elif distance >= 150:
+		damage = 7.5
 
 	if damage > 0:
 		print("Вільне падіння з висоти: ", int(distance), " пікселів. Отримано шкоди: ", damage)
 		take_damage(damage)
 
 # Завдання шкоди та перевірка на смерть
-func take_damage(amount: int) -> void:
+func take_damage(amount: float) -> void:
 	current_health -= amount
 	print("Залишок здоров'я: ", current_health)
 	update_health_bar()
