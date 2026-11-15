@@ -15,27 +15,29 @@
 [ext_resource type="Texture2D" uid="uid://fl2h3q61g0lu" path="res://sprites/plant.png" id="12_jhx03"]
 [ext_resource type="PackedScene" uid="uid://duudyr1k6ro7g" path="res://scenes/crystal.tscn" id="14_o8fc1"]
 [ext_resource type="Texture2D" uid="uid://fxgq86qwy4jn" path="res://sprites/crystal.png" id="15_xo05s"]
+[ext_resource type="Texture2D" uid="uid://cp7umj1iue4fr" path="res://assets/level_complete.webp" id="16_level_complete"]
+[ext_resource type="Texture2D" uid="uid://eh7sfj8jng8a" path="res://sprites/frame.png" id="17_frame"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnefl"]
 size = Vector2(3399.5, 153.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecb02"]
-size = Vector2(222, 1201)
+size = Vector2(274, 1202.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nq5o4"]
-size = Vector2(492, 2224)
+size = Vector2(505, 2252.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td3bv"]
-size = Vector2(440, 1705)
+size = Vector2(496.25, 1740)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d38v1"]
-size = Vector2(498, 2558)
+size = Vector2(579.5, 1879)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8mrn"]
-size = Vector2(2227, 121)
+size = Vector2(2328.5, 234)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
-size = Vector2(1325, 118)
+size = Vector2(1810.5, 313)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vyb7"]
 bg_color = Color(0, 0.65882355, 0.85490197, 1)
@@ -46,27 +48,33 @@ bg_color = Color(0, 0.65882355, 0.85490197, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d38v1"]
 bg_color = Color(0, 0.65882355, 0.85490197, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sghoy"]
+size = Vector2(105.5, 5278)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7x4lc"]
+size = Vector2(141.5, 3314)
+
 [node name="World" type="Node2D" unique_id=2035015843]
 
 [node name="Layer sky" type="Parallax2D" parent="." unique_id=1806641324]
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer sky" unique_id=730302192]
-position = Vector2(1631, -763.00006)
-scale = Vector2(0.7315, 0.46199998)
+position = Vector2(2242.5, -3514.1252)
+scale = Vector2(0.9074, 0.9132188)
 texture = ExtResource("4_k0juu")
 
 [node name="far rocks" type="Parallax2D" parent="." unique_id=1633708868]
 
 [node name="Sprite2D" type="Sprite2D" parent="far rocks" unique_id=387326280]
-position = Vector2(1657.4999, -755.0002)
-scale = Vector2(0.73260003, 0.46249998)
+position = Vector2(2257.7502, -1969.5002)
+scale = Vector2(0.90749997, 0.76287496)
 texture = ExtResource("2_i7141")
 
 [node name="closer rocks" type="Parallax2D" parent="." unique_id=965117768]
 
 [node name="Sprite2D" type="Sprite2D" parent="closer rocks" unique_id=816992824]
-position = Vector2(1649.0001, -1229.5)
-scale = Vector2(0.7304, 0.57262504)
+position = Vector2(2257.25, -1680.2502)
+scale = Vector2(0.90610003, 0.68118757)
 texture = ExtResource("3_4mrxx")
 
 [node name="closest rocks" type="Parallax2D" parent="." unique_id=690000481]
@@ -78,132 +86,132 @@ script = ExtResource("2_rwgxs")
 position = Vector2(1696, 970.125)
 shape = SubResource("RectangleShape2D_cnefl")
 
+[node name="Crystal" parent="." unique_id=1385933118 instance=ExtResource("14_o8fc1")]
+position = Vector2(1109, -1220)
+
 [node name="Cliff1" type="StaticBody2D" parent="." unique_id=227443539]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cliff1" unique_id=1699713436]
-position = Vector2(266, -0.5)
+position = Vector2(677, -52.75)
 shape = SubResource("RectangleShape2D_ecb02")
 
 [node name="ColorRect" type="ColorRect" parent="Cliff1" unique_id=105101198]
-offset_left = 166.0
-offset_top = -599.0
-offset_right = 374.0
-offset_bottom = 598.0
+offset_left = 557.0
+offset_top = -633.0
+offset_right = 823.0
+offset_bottom = 564.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Cliff1" unique_id=1029860325]
-position = Vector2(307.50003, -132.75)
-scale = Vector2(0.13380001, 0.1838125)
+position = Vector2(659, -62)
+scale = Vector2(2.2116663, 2.722)
 texture = ExtResource("6_i7141")
+
+[node name="HealthPlant" parent="." unique_id=1440345486 instance=ExtResource("2_4wyf3")]
+position = Vector2(2181, 523)
+
+[node name="Sprite2D" type="Sprite2D" parent="HealthPlant" unique_id=76711369]
+position = Vector2(-8.6307526e-05, -34.999985)
+scale = Vector2(0.11054256, 0.08840704)
+texture = ExtResource("12_jhx03")
 
 [node name="Cliff2" type="StaticBody2D" parent="." unique_id=1171132205]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cliff2" unique_id=151617899]
-position = Vector2(909, -512)
+position = Vector2(1459.5, -563.75)
 shape = SubResource("RectangleShape2D_nq5o4")
 
 [node name="ColorRect" type="ColorRect" parent="Cliff2" unique_id=2082981367]
-offset_left = 682.0
-offset_top = -1623.0
-offset_right = 1149.0
-offset_bottom = 601.0
+offset_left = 1225.0
+offset_top = -1656.0
+offset_right = 1692.0
+offset_bottom = 568.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Cliff2" unique_id=664679953]
-position = Vector2(878, -756.00006)
-scale = Vector2(0.278, 0.34075004)
+position = Vector2(1477, -476)
+scale = Vector2(4.6666665, 5.266)
 texture = ExtResource("7_w7kh3")
+
+[node name="Crystal2" parent="." unique_id=300490208 instance=ExtResource("14_o8fc1")]
+position = Vector2(2850, -1780)
 
 [node name="WallLeft" type="StaticBody2D" parent="." unique_id=1156576509]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" unique_id=1155383286]
-position = Vector2(1805, -268.5)
+position = Vector2(2457.875, -342)
 shape = SubResource("RectangleShape2D_td3bv")
 
 [node name="ColorRect" type="ColorRect" parent="WallLeft" unique_id=460967164]
-offset_left = 1596.0
-offset_top = -1123.0
-offset_right = 2008.0
-offset_bottom = 608.0
+offset_left = 2232.0
+offset_top = -1189.0
+offset_right = 2644.0
+offset_bottom = 542.0
 
 [node name="Sprite2D" type="Sprite2D" parent="WallLeft" unique_id=1180174640]
-position = Vector2(1892.5, -465.00006)
-scale = Vector2(0.26979998, 0.26925)
+position = Vector2(2476, -372.00003)
+scale = Vector2(1.9375, 1.7861328)
 texture = ExtResource("8_e3hyu")
 
 [node name="WallRight" type="StaticBody2D" parent="." unique_id=920398106]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=686765870]
-position = Vector2(2685, -677)
+position = Vector2(3437.75, -355.5)
 shape = SubResource("RectangleShape2D_d38v1")
 
 [node name="ColorRect" type="ColorRect" parent="WallRight" unique_id=892188517]
-offset_left = 2449.0
-offset_top = -1961.0
-offset_right = 2923.0
-offset_bottom = 602.0
+offset_left = 3207.0
+offset_top = -1256.0
+offset_right = 3681.0
+offset_bottom = 554.0
 
 [node name="Sprite2D" type="Sprite2D" parent="WallRight" unique_id=264967036]
-position = Vector2(2774.0002, -952.99994)
-scale = Vector2(0.30620012, 0.39537495)
+position = Vector2(3516, -366.19595)
+scale = Vector2(2.0765624, 1.917586)
 texture = ExtResource("7_4mrxx")
 
 [node name="Player" parent="." unique_id=1296623671 instance=ExtResource("1_nnsk1")]
-position = Vector2(-16, 572)
+position = Vector2(81, 562)
 sec1_path = NodePath("../CanvasLayer/HBoxContainer/Section1")
 sec2_path = NodePath("../CanvasLayer/HBoxContainer/Section2")
 sec3_path = NodePath("../CanvasLayer/HBoxContainer/Section3")
 level_complete_label_path = NodePath("../CanvasLayer/LevelComplete")
 
+[node name="Crystal3" parent="." unique_id=1159116575 instance=ExtResource("14_o8fc1")]
+position = Vector2(4412, -35)
+
 [node name="Ground2" type="StaticBody2D" parent="." unique_id=942687670]
 position = Vector2(1499, -2005)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground2" unique_id=771146362]
-position = Vector2(1199, 2652)
+position = Vector2(1854.75, 2679)
 shape = SubResource("RectangleShape2D_h8mrn")
 
 [node name="ColorRect" type="ColorRect" parent="Ground2" unique_id=1535644202]
-offset_left = 93.0
-offset_top = 2591.0
-offset_right = 2326.0
-offset_bottom = 2715.0
+offset_left = 744.0
+offset_top = 2561.0
+offset_right = 2977.0
+offset_bottom = 2792.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Ground2" unique_id=182993066]
-position = Vector2(1158.4998, 3004.0002)
-scale = Vector2(0.48299995, 0.46575)
+position = Vector2(1706.2499, 2989.5)
+scale = Vector2(0.53129995, 0.46662498)
 texture = ExtResource("10_q5onr")
-
-[node name="HealthPlant" parent="." unique_id=1440345486 instance=ExtResource("2_4wyf3")]
-position = Vector2(944, -1633)
-
-[node name="Sprite2D" type="Sprite2D" parent="HealthPlant" unique_id=76711369]
-position = Vector2(-0.99997234, -39.999992)
-scale = Vector2(0.1702278, 0.14277521)
-texture = ExtResource("12_jhx03")
 
 [node name="Ground1" type="StaticBody2D" parent="." unique_id=2083186750]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground1" unique_id=509192093]
-position = Vector2(488.5, 659)
+position = Vector2(883.25, 690.5)
 shape = SubResource("RectangleShape2D_3vyb7")
 
 [node name="ColorRect" type="ColorRect" parent="Ground1" unique_id=1484813490]
-offset_left = -175.0
-offset_top = 600.0
+offset_left = -31.0
+offset_top = 582.0
 offset_right = 1151.0
 offset_bottom = 725.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Ground1" unique_id=1622957006]
-position = Vector2(685.50006, 358)
-scale = Vector2(0.373, 0.25925)
+position = Vector2(1112, 287)
+scale = Vector2(0.4924, 0.29250002)
 texture = ExtResource("11_e3hyu")
-
-[node name="Crystal" parent="." unique_id=1385933118 instance=ExtResource("14_o8fc1")]
-position = Vector2(671, -1194)
-
-[node name="Crystal2" parent="." unique_id=300490208 instance=ExtResource("14_o8fc1")]
-position = Vector2(2222, -1749)
-
-[node name="Crystal3" parent="." unique_id=1159116575 instance=ExtResource("14_o8fc1")]
-position = Vector2(3850, 5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=12536856]
 
@@ -211,8 +219,10 @@ position = Vector2(3850, 5)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -290.0
-offset_bottom = 83.0
+offset_left = -360.0
+offset_top = 65.0
+offset_right = -65.0
+offset_bottom = 148.0
 grow_horizontal = 0
 
 [node name="Section1" type="ProgressBar" parent="CanvasLayer/HBoxContainer" unique_id=438851220]
@@ -246,22 +256,58 @@ layout_mode = 2
 texture = ExtResource("15_xo05s")
 expand_mode = 1
 
-[node name="LevelComplete" type="Label" parent="CanvasLayer" unique_id=441819173]
+[node name="LevelComplete" type="TextureRect" parent="CanvasLayer" unique_id=441819173]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -45.0
-offset_right = 250.0
-offset_bottom = 45.0
+offset_left = -400.0
+offset_top = -225.0
+offset_right = 400.0
+offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(250, 45)
-theme_override_colors/font_color = Color(1, 0.9, 0.1, 1)
-theme_override_font_sizes/font_size = 48
-text = "Level complete"
-horizontal_alignment = 1
-vertical_alignment = 1
+pivot_offset = Vector2(400, 225)
+texture = ExtResource("16_level_complete")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CameraFrame" type="TextureRect" parent="CanvasLayer" unique_id=340327199]
+anchors_preset = -1
+anchor_top = 0.043
+anchor_right = 0.97400004
+anchor_bottom = 0.98300004
+offset_left = -3.0
+offset_top = -24.864
+offset_right = 57.951904
+offset_bottom = 28.015991
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("17_frame")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="StaticBody2D left" type="StaticBody2D" parent="." unique_id=1670552823]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D left" unique_id=2033564550]
+position = Vector2(-7.25, -2079)
+shape = SubResource("RectangleShape2D_sghoy")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D left" unique_id=401610285]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StaticBody2D2 right" type="StaticBody2D" parent="." unique_id=1968512778]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2 right" unique_id=776177320]
+position = Vector2(4611.25, -1160)
+shape = SubResource("RectangleShape2D_7x4lc")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2 right" unique_id=1659078369]
+offset_left = 4511.0
+offset_top = -2852.0
+offset_right = 4716.0
+offset_bottom = 532.0

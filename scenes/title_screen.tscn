@@ -1,0 +1,135 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/title_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/title_poster.jpg" id="2_poster"]
+
+[sub_resource type="StyleBoxFlat" id="ButtonStoneNormal"]
+bg_color = Color(0.39, 0.38, 0.34, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.14, 0.15, 0.15, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.02, 0.025, 0.03, 0.8)
+shadow_size = 7
+
+[sub_resource type="StyleBoxFlat" id="ButtonStoneHover"]
+bg_color = Color(0.52, 0.52, 0.47, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.27, 0.3, 0.3, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.02, 0.025, 0.03, 0.8)
+shadow_size = 7
+
+[sub_resource type="StyleBoxFlat" id="ButtonStonePressed"]
+bg_color = Color(0.29, 0.3, 0.29, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.12, 0.13, 0.13, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Poster" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_poster")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ButtonPanel" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.76
+anchor_right = 0.5
+anchor_bottom = 0.76
+offset_left = -145.0
+offset_top = -42.0
+offset_right = 145.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 12
+
+[node name="PlayButton" type="Button" parent="ButtonPanel"]
+custom_minimum_size = Vector2(290, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.04, 0.1, 0.14, 1)
+theme_override_colors/font_hover_color = Color(0.04, 0.1, 0.14, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.94, 0.91, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("ButtonStoneNormal")
+theme_override_styles/hover = SubResource("ButtonStoneHover")
+theme_override_styles/pressed = SubResource("ButtonStonePressed")
+theme_override_styles/focus = SubResource("ButtonStoneHover")
+theme_override_constants/outline_size = 2
+theme_override_colors/font_outline_color = Color(0.06, 0.075, 0.08, 1)
+text = "Play"
+
+[node name="ControlsButton" type="Button" parent="ButtonPanel"]
+custom_minimum_size = Vector2(290, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.04, 0.1, 0.14, 1)
+theme_override_colors/font_hover_color = Color(0.04, 0.1, 0.14, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.94, 0.91, 1)
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("ButtonStoneNormal")
+theme_override_styles/hover = SubResource("ButtonStoneHover")
+theme_override_styles/pressed = SubResource("ButtonStonePressed")
+theme_override_styles/focus = SubResource("ButtonStoneHover")
+theme_override_constants/outline_size = 2
+theme_override_colors/font_outline_color = Color(0.06, 0.075, 0.08, 1)
+text = "Control buttons"
+
+[node name="ControlsPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -365.0
+offset_top = -220.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ControlsText" type="Label" parent="ControlsPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.94, 1, 1)
+theme_override_font_sizes/font_size = 19
+text = "CONTROLS\n← — move left\n→ — move right\n↑ — climb walls\n↓ — climb down walls\nSpace — jump / wall jump\n\nCollect all the crystals!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="ButtonPanel/PlayButton" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="ButtonPanel/ControlsButton" to="." method="_on_controls_pressed"]

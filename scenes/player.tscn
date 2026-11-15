@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://bsquwmberr2sn"]
 
 [ext_resource type="Script" uid="uid://b8rstmaw41oh8" path="res://scenes/player.gd" id="1_3vyb7"]
-[ext_resource type="SpriteFrames" path="res://sprites/miner_frames.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" uid="uid://0tvdex8ydf08" path="res://sprites/miner_frames.tres" id="2_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnefl"]
-size = Vector2(32, 48)
+size = Vector2(31, 83)
 
 [node name="Player" type="CharacterBody2D" unique_id=1296623671]
 script = ExtResource("1_3vyb7")
 health_bar_path = NodePath("HealthBar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=655010968]
+position = Vector2(0.5, -46.5)
 shape = SubResource("RectangleShape2D_cnefl")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=487253920]
@@ -21,23 +22,26 @@ offset_right = 16.0
 offset_bottom = 24.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=125478001]
-position = Vector2(0, 0)
-scale = Vector2(0.1, 0.1)
+position = Vector2(7, -65)
+scale = Vector2(0.25, 0.25)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1348757073]
-offset = Vector2(520, -500)
+offset = Vector2(593.5, -500)
 zoom = Vector2(0.5, 0.5)
+limit_left = -640
+limit_right = 3940
+limit_enabled = true
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=377155235]
-offset_left = -619.0
-offset_top = -1137.0
-offset_right = -229.0
-offset_bottom = -1076.0
+offset_left = -499.0
+offset_top = -1017.0
+offset_right = -109.0
+offset_bottom = -956.0
 step = 5.0
 value = 100.0
 metadata/_edit_use_anchors_ = true

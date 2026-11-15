@@ -12,7 +12,7 @@ var collected_crystals: int = 0
 @onready var sec1: ProgressBar = get_node_or_null(sec1_path)
 @onready var sec2: ProgressBar = get_node_or_null(sec2_path)
 @onready var sec3: ProgressBar = get_node_or_null(sec3_path)
-@onready var level_complete_label: Label = get_node_or_null(level_complete_label_path)
+@onready var level_complete_label: TextureRect = get_node_or_null(level_complete_label_path)
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var speed: float = 200.0
@@ -31,6 +31,7 @@ var current_health: int = 100
 
 var fall_start_y: float = 0.0
 var was_airborne: bool = false
+var is_jumping: bool = false
 
 func _ready() -> void:
 	current_health = max_health
@@ -39,13 +40,20 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# 1. Фізика та відстеження падіння
 	if not is_on_floor():
-		if is_on_wall() and velocity.y > 0:
+		if is_on_wall() and Input.is_action_pressed("ui_down"):
+			was_airborne = false
+			velocity.y = speed
+		elif is_on_wall() and Input.is_action_pressed("ui_up"):
+			was_airborne = false
+			velocity.y = -speed
+		elif is_on_wall() and velocity.y > 0:
 			was_airborne = false 
 			velocity.y = min(velocity.y + gravity * delta, wall_slide_speed)
 			
 			if Input.is_action_just_pressed("ui_accept"):
 				velocity.x = get_wall_normal().x * speed * 1.8
 				velocity.y = jump_velocity
+				is_jumping = true
 		else:
 			if not was_airborne and velocity.y > 0:
 				was_airborne = true
@@ -53,6 +61,7 @@ func _physics_process(delta: float) -> void:
 				
 			velocity.y += gravity * delta
 	else:
+		is_jumping = false
 		if was_airborne:
 			was_airborne = false
 			var fall_distance = global_position.y - fall_start_y
@@ -64,6 +73,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = jump_velocity
 		was_airborne = false
+		is_jumping = true
 
 	# 3. Горизонтальний рух
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -76,9 +86,14 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	var target_animation := "idle" if is_on_floor() and is_zero_approx(velocity.x) else "run"
+	var climbing_up := is_on_wall() and Input.is_action_pressed("ui_up")
+	var climbing_down := is_on_wall() and Input.is_action_pressed("ui_down")
+	var target_animation := "climb" if climbing_up or climbing_down else ("jump" if is_jumping else ("idle" if is_on_floor() and is_zero_approx(velocity.x) else "run"))
 	if animated_sprite.animation != target_animation:
 		animated_sprite.play(target_animation)
+	animated_sprite.speed_scale = -1.0 if climbing_down else 1.0
+	var animation_scale := 0.4125 if target_animation == "climb" else 0.375
+	animated_sprite.scale = Vector2(animation_scale, animation_scale)
 
 # Калькулятор шкоди від падіння
 func calculate_fall_damage(distance: float) -> void:
@@ -143,12 +158,13 @@ func add_crystal() -> void:
 	collected_crystals += 1
 	print("Кристал зібрано! Всього: ", collected_crystals)
 	update_crystal_ui()
-	if collected_crystals == 3:
+	if get_tree().get_nodes_in_group("crystals").is_empty():
 		show_level_complete()
 
 func show_level_complete() -> void:
-	if not level_complete_label:
+	if not level_complete_label or level_complete_label.visible:
 		return
+	await get_tree().create_timer(1.5).timeout
 	level_complete_label.visible = true
 	level_complete_label.scale = Vector2(0.5, 0.5)
 	var tween := create_tween()
