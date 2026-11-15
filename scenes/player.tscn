@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b8rstmaw41oh8" path="res://scenes/player.gd" id="1_3vyb7"]
 [ext_resource type="SpriteFrames" uid="uid://0tvdex8ydf08" path="res://sprites/miner_frames.tres" id="2_frames"]
+[ext_resource type="AudioStreamWAV" path="res://audio/run_loop.wav" id="3_run_sfx"]
+[ext_resource type="AudioStreamWAV" path="res://audio/land.wav" id="4_land_sfx"]
+[ext_resource type="AudioStreamWAV" path="res://audio/climb_loop.wav" id="5_climb_sfx"]
+[ext_resource type="AudioStreamWAV" path="res://audio/damage.wav" id="6_damage_sfx"]
+[ext_resource type="AudioStreamWAV" path="res://audio/crystal.wav" id="7_crystal_sfx"]
+[ext_resource type="AudioStreamWAV" path="res://audio/level_complete.wav" id="8_complete_sfx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnefl"]
 size = Vector2(31, 83)
@@ -45,3 +51,27 @@ offset_bottom = -956.0
 step = 5.0
 value = 100.0
 metadata/_edit_use_anchors_ = true
+
+[node name="RunSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_run_sfx")
+volume_db = -18.0
+
+[node name="LandSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_land_sfx")
+volume_db = -8.0
+
+[node name="ClimbSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_climb_sfx")
+volume_db = -30.0
+
+[node name="DamageSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_damage_sfx")
+volume_db = -8.0
+
+[node name="CrystalSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_crystal_sfx")
+volume_db = -7.0
+
+[node name="CompleteSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_complete_sfx")
+volume_db = -8.0

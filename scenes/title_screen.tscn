@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scenes/title_screen.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/title_poster.jpg" id="2_poster"]
+[ext_resource type="AudioStreamWAV" path="res://audio/menu_theme.wav" id="3_menu_music"]
+[ext_resource type="AudioStreamWAV" path="res://audio/ui_click.wav" id="4_ui_click"]
 
 [sub_resource type="StyleBoxFlat" id="ButtonStoneNormal"]
 bg_color = Color(0.39, 0.38, 0.34, 1)
@@ -130,6 +132,14 @@ theme_override_font_sizes/font_size = 19
 text = "CONTROLS\n← — move left\n→ — move right\n↑ — climb walls\n↓ — climb down walls\nSpace — jump / wall jump\n\nCollect all the crystals!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_menu_music")
+volume_db = -13.0
+
+[node name="UIClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ui_click")
+volume_db = -5.0
 
 [connection signal="pressed" from="ButtonPanel/PlayButton" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="ButtonPanel/ControlsButton" to="." method="_on_controls_pressed"]

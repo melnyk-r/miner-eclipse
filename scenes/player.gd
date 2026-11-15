@@ -14,6 +14,12 @@ var collected_crystals: int = 0
 @onready var sec3: ProgressBar = get_node_or_null(sec3_path)
 @onready var level_complete_label: TextureRect = get_node_or_null(level_complete_label_path)
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var run_sfx: AudioStreamPlayer = $RunSfx
+@onready var land_sfx: AudioStreamPlayer = $LandSfx
+@onready var climb_sfx: AudioStreamPlayer = $ClimbSfx
+@onready var damage_sfx: AudioStreamPlayer = $DamageSfx
+@onready var crystal_sfx: AudioStreamPlayer = $CrystalSfx
+@onready var complete_sfx: AudioStreamPlayer = $CompleteSfx
 
 @export var speed: float = 200.0
 @export var jump_velocity: float = -400.0
@@ -33,12 +39,17 @@ var fall_start_y: float = 0.0
 var was_airborne: bool = false
 var is_jumping: bool = false
 var wall_climb_paused: bool = false
+var run_sfx_active: bool = false
+var climb_sfx_active: bool = false
 
 func _ready() -> void:
 	current_health = max_health
+	run_sfx.finished.connect(_on_run_sfx_finished)
+	climb_sfx.finished.connect(_on_climb_sfx_finished)
 	update_health_bar()
 
 func _physics_process(delta: float) -> void:
+	var landed_from_jump := is_jumping
 	var direction := Input.get_axis("ui_left", "ui_right")
 	var climbing_up_input := Input.is_action_pressed("ui_up")
 	var climbing_down_input := Input.is_action_pressed("ui_down")
@@ -80,6 +91,8 @@ func _physics_process(delta: float) -> void:
 		is_jumping = false
 		if was_airborne:
 			was_airborne = false
+			if landed_from_jump:
+				land_sfx.play()
 			var fall_distance = global_position.y - fall_start_y
 			
 			if fall_distance >= 50:
@@ -121,6 +134,28 @@ func _physics_process(delta: float) -> void:
 	var animation_scale := 0.4125 if target_animation == "climb" else 0.375
 	animated_sprite.scale = Vector2(animation_scale, animation_scale)
 
+	run_sfx_active = is_on_floor() and absf(velocity.x) > 1.0 and not on_wall
+	if run_sfx_active:
+		if not run_sfx.playing:
+			run_sfx.play()
+	elif run_sfx.playing:
+		run_sfx.stop()
+
+	climb_sfx_active = on_wall and (climbing_up_input or climbing_down_input)
+	if climb_sfx_active:
+		if not climb_sfx.playing:
+			climb_sfx.play()
+	elif climb_sfx.playing:
+		climb_sfx.stop()
+
+func _on_run_sfx_finished() -> void:
+	if run_sfx_active:
+		run_sfx.play()
+
+func _on_climb_sfx_finished() -> void:
+	if climb_sfx_active:
+		climb_sfx.play()
+
 # Калькулятор шкоди від падіння
 func calculate_fall_damage(distance: float) -> void:
 	var damage: float = 0.0
@@ -140,6 +175,7 @@ func calculate_fall_damage(distance: float) -> void:
 
 # Завдання шкоди та перевірка на смерть
 func take_damage(amount: float) -> void:
+	damage_sfx.play()
 	current_health -= amount
 	print("Залишок здоров'я: ", current_health)
 	update_health_bar()
@@ -181,6 +217,7 @@ func update_health_bar() -> void:
 
 # --- ФУНКЦІЇ КРИСТАЛІВ ---
 func add_crystal() -> void:
+	crystal_sfx.play()
 	collected_crystals += 1
 	print("Кристал зібрано! Всього: ", collected_crystals)
 	update_crystal_ui()
@@ -192,6 +229,7 @@ func show_level_complete() -> void:
 		return
 	await get_tree().create_timer(1.5).timeout
 	level_complete_label.visible = true
+	complete_sfx.play()
 	level_complete_label.scale = Vector2(0.5, 0.5)
 	var tween := create_tween()
 	tween.tween_property(level_complete_label, "scale", Vector2(1.2, 1.2), 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)

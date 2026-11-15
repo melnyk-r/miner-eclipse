@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://fxgq86qwy4jn" path="res://sprites/crystal.png" id="15_xo05s"]
 [ext_resource type="Texture2D" uid="uid://cp7umj1iue4fr" path="res://assets/level_complete.webp" id="16_level_complete"]
 [ext_resource type="Texture2D" uid="uid://eh7sfj8jng8a" path="res://sprites/frame.png" id="17_frame"]
+[ext_resource type="Script" path="res://scripts/world_audio.gd" id="18_world_audio"]
+[ext_resource type="AudioStreamWAV" path="res://audio/game_theme.wav" id="19_game_music"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnefl"]
 size = Vector2(3399.5, 153.75)
@@ -55,6 +57,7 @@ size = Vector2(105.5, 5278)
 size = Vector2(141.5, 3314)
 
 [node name="World" type="Node2D" unique_id=2035015843]
+script = ExtResource("18_world_audio")
 
 [node name="Layer sky" type="Parallax2D" parent="." unique_id=1806641324]
 
@@ -206,6 +209,10 @@ scale = Vector2(0.4924, 0.29250002)
 texture = ExtResource("11_e3hyu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=12536856]
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="CanvasLayer"]
+stream = ExtResource("19_game_music")
+volume_db = -15.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1581631185]
 anchors_preset = 1
